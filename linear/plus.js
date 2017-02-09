@@ -1,3 +1,16 @@
+function add(sum, max, total, carry) {
+  if (total > 9) {
+    sum[max] = total -10;
+    carry = 1;
+  } else {
+    sum[max] = total;
+    carry = 0;
+  }
+  max--;
+
+  return [sum, max, total, carry];
+}
+
 /**
  * adds two numbers and returns the result
  * addition algorithm
@@ -8,7 +21,7 @@ export default function plus (
   two,
   sum = [],
 ) {
-  const n1 = String(one).split('').map(n => +n), n2 = String(two).split('').map(n => +n);
+  const [n1, n2] = [one, two].map((x) => String(x).split('').map(y => Number(y)));
 
   let
     position1 = n1.length,
@@ -18,39 +31,21 @@ export default function plus (
 
   while (--position1 >=0 && --position2 >= 0) {
     let total = n1[position1] + n2[position2] + carry;
-    if (total > 9) {
-      sum[max] = total -10;
-      carry = 1;
-    } else {
-      sum[max] = total;
-      carry = 0;
-    }
-    max--;
+    [sum, max, total, carry] = add(sum, max, total, carry);
   }
 
-  while(position1-- >=0) {
-    let total = n1[position1] + carry;
-    if (total > 9) {
-      sum[max] = total -10;
-      carry = 1;
-    } else {
-      sum[max] = total;
-      carry = 0;
+  if (position1 > 0)
+    while(position1-- >=0) {
+      let total = n1[position1] + carry;
+      [sum, max, total, carry] = add(sum, max, total, carry);
     }
-    max--;
-  }
-  while(position2-- >=0) {
-    let total = n2[position2] + carry;
-    if (total > 9) {
-      sum[max] = total -10;
-      carry = 1;
-    } else {
-      sum[max] = total;
-      carry = 0;
+  else if (position2 > 0)
+    while(position2-- >=0) {
+      let total = n2[position2] + carry;
+      [sum, max, total, carry] = add(sum, max, total, carry);
     }
-    max--;
-  }
 
   if (carry) sum[max] = carry;
-  return sum.join();
+
+  return Number(sum.join(''));
 }

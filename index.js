@@ -1,5 +1,18 @@
 'use strict';
 
+function add(sum, max, total, carry) {
+  if (total > 9) {
+    sum[max] = total - 10;
+    carry = 1;
+  } else {
+    sum[max] = total;
+    carry = 0;
+  }
+  max--;
+
+  return [sum, max, total, carry];
+}
+
 /**
  * adds two numbers and returns the result
  * addition algorithm
@@ -9,12 +22,13 @@ function plus(one, // 10 === [1,0]
 two) {
   var sum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-  var n1 = String(one).split('').map(function (n) {
-    return +n;
+  var _map = [one, two].map(function (x) {
+    return String(x).split('').map(function (y) {
+      return Number(y);
+    });
   }),
-      n2 = String(two).split('').map(function (n) {
-    return +n;
-  });
+      n1 = _map[0],
+      n2 = _map[1];
 
   var position1 = n1.length,
       position2 = n2.length,
@@ -23,41 +37,38 @@ two) {
 
   while (--position1 >= 0 && --position2 >= 0) {
     var total = n1[position1] + n2[position2] + carry;
-    if (total > 9) {
-      sum[max] = total - 10;
-      carry = 1;
-    } else {
-      sum[max] = total;
-      carry = 0;
-    }
-    max--;
+
+    var _add = add(sum, max, total, carry);
+
+    sum = _add[0];
+    max = _add[1];
+    total = _add[2];
+    carry = _add[3];
   }
 
-  while (position1-- >= 0) {
+  if (position1 > 0) while (position1-- >= 0) {
     var _total = n1[position1] + carry;
-    if (_total > 9) {
-      sum[max] = _total - 10;
-      carry = 1;
-    } else {
-      sum[max] = _total;
-      carry = 0;
-    }
-    max--;
-  }
-  while (position2-- >= 0) {
+
+    var _add2 = add(sum, max, _total, carry);
+
+    sum = _add2[0];
+    max = _add2[1];
+    _total = _add2[2];
+    carry = _add2[3];
+  } else if (position2 > 0) while (position2-- >= 0) {
     var _total2 = n2[position2] + carry;
-    if (_total2 > 9) {
-      sum[max] = _total2 - 10;
-      carry = 1;
-    } else {
-      sum[max] = _total2;
-      carry = 0;
-    }
-    max--;
+
+    var _add3 = add(sum, max, _total2, carry);
+
+    sum = _add3[0];
+    max = _add3[1];
+    _total2 = _add3[2];
+    carry = _add3[3];
   }
 
   if (carry) sum[max] = carry;
-  return sum.join();
+
+  return Number(sum.join(''));
 }
 
 var linear = {
