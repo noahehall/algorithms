@@ -1,3 +1,3 @@
 var algo = require('./index.js');
 
-console.dir(algo.linear.plus(10, 507));
+console.dir(algo.linear.plus(222220, 111911));

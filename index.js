@@ -22,7 +22,7 @@ function plus(one, // 10 === [1,0]
 two) {
   var sum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-  var _map = [one, two].map(function (x) {
+  var _map = [parseInt(one, 10), parseInt(two, 10)].map(function (x) {
     return String(x).split('').map(function (y) {
       return Number(y);
     });
@@ -46,7 +46,7 @@ two) {
     carry = _add[3];
   }
 
-  if (position1 > 0) while (position1-- >= 0) {
+  if (position1 >= 0) while (position1 >= 0) {
     var _total = n1[position1] + carry;
 
     var _add2 = add(sum, max, _total, carry);
@@ -55,7 +55,9 @@ two) {
     max = _add2[1];
     _total = _add2[2];
     carry = _add2[3];
-  } else if (position2 > 0) while (position2-- >= 0) {
+
+    --position1;
+  } else if (position2 >= 0) while (position2 >= 0) {
     var _total2 = n2[position2] + carry;
 
     var _add3 = add(sum, max, _total2, carry);
@@ -64,10 +66,11 @@ two) {
     max = _add3[1];
     _total2 = _add3[2];
     carry = _add3[3];
+
+    --position2;
   }
 
-  if (carry) sum[max] = carry;
-
+  if (carry > 0) sum[max] = carry;
   return Number(sum.join(''));
 }
 

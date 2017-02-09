@@ -21,8 +21,7 @@ export default function plus (
   two,
   sum = [],
 ) {
-  const [n1, n2] = [one, two].map((x) => String(x).split('').map(y => Number(y)));
-
+  const [n1, n2] = [parseInt(one, 10), parseInt(two, 10)].map((x) => String(x).split('').map(y => Number(y)));
   let
     position1 = n1.length,
     position2 = n2.length,
@@ -34,18 +33,19 @@ export default function plus (
     [sum, max, total, carry] = add(sum, max, total, carry);
   }
 
-  if (position1 > 0)
-    while(position1-- >=0) {
+  if (position1 >= 0)
+    while(position1 >=0) {
       let total = n1[position1] + carry;
       [sum, max, total, carry] = add(sum, max, total, carry);
+      --position1;
     }
-  else if (position2 > 0)
-    while(position2-- >=0) {
+  else if (position2 >= 0)
+    while(position2 >=0) {
       let total = n2[position2] + carry;
       [sum, max, total, carry] = add(sum, max, total, carry);
+      --position2;
     }
 
-  if (carry) sum[max] = carry;
-
+  if (carry > 0) sum[max] = carry;
   return Number(sum.join(''));
 }
