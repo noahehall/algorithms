@@ -29,7 +29,7 @@ export default function plus (
   }
   if (position1 !== 0) {
     sum.unshift(n1.slice(0, position1 - 1))
-  };
+  }
   else if (position2 !== 0) {
     sum.unshift(n2.slice(0, position - 1))
   };
