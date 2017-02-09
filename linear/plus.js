@@ -27,12 +27,30 @@ export default function plus (
     }
     max--;
   }
-  if (position1 !== 0) {
-    sum.unshift(n1.slice(0, position1 - 1))
+
+  while(position1-- >=0) {
+    let total = n1[position1] + carry;
+    if (total > 9) {
+      sum[max] = total -10;
+      carry = 1;
+    } else {
+      sum[max] = total;
+      carry = 0;
+    }
+    max--;
   }
-  else if (position2 !== 0) {
-    sum.unshift(n2.slice(0, position - 1))
-  };
-  sum[max] = carry;
-  return [sum.join(), position1, position2, max, carry, n1, n2];
+  while(position2-- >=0) {
+    let total = n2[position2] + carry;
+    if (total > 9) {
+      sum[max] = total -10;
+      carry = 1;
+    } else {
+      sum[max] = total;
+      carry = 0;
+    }
+    max--;
+  }
+
+  if (carry) sum[max] = carry;
+  return sum.join();
 }
