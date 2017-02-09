@@ -21,7 +21,7 @@ export default function plus (
   two,
   sum = [],
 ) {
-  const [n1, n2] = [parseInt(one, 10), parseInt(two, 10)].map((x) => String(x).split('').map(y => Number(y)));
+  const [n1, n2] = [one, two].map((x) => String(parseInt(x, 10)).split('').map(y => Number(y)));
   let
     position1 = n1.length,
     position2 = n2.length,

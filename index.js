@@ -22,8 +22,8 @@ function plus(one, // 10 === [1,0]
 two) {
   var sum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-  var _map = [parseInt(one, 10), parseInt(two, 10)].map(function (x) {
-    return String(x).split('').map(function (y) {
+  var _map = [one, two].map(function (x) {
+    return String(parseInt(x, 10)).split('').map(function (y) {
       return Number(y);
     });
   }),
