@@ -92,8 +92,10 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var algorithms = {
+var algo = {
   linear: _extends({}, linear)
 };
 
-module.exports = algorithms;
+var index = _extends({}, algo);
+
+module.exports = index;
