@@ -78,6 +78,20 @@ var linear = {
   plus: plus
 };
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+
+
+
+
+
+
+
+
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -96,6 +110,37 @@ var algo = {
   linear: _extends({}, linear)
 };
 
-var index = _extends({}, algo);
+/**
+ * creates a matrix and returns
+ * @see datastructures and algorithms in javascript, page 28
+ */
+var TwoD = function TwoD() {
+  var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2;
+  var cols = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+  var init = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  classCallCheck(this, TwoD);
+
+  var arr = [];
+  while (rows-- > 0) {
+    var reset = cols;
+    var columns = [];
+    while (cols-- > 0) {
+      columns[columns.length] = init;
+    }
+    arr[arr.length] = columns;
+    cols = reset;
+  }
+  return arr;
+};
+
+var arrays = {
+  TwoD: TwoD
+};
+
+var ds = {
+  arrays: _extends({}, arrays)
+};
+
+var index = _extends({}, algo, ds);
 
 module.exports = index;

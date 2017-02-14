@@ -1,3 +1,9 @@
-var algo = require('./index.js');
+var dsalgo = require('./index.js');
 
-console.dir(algo.linear.plus(222220, 111911));
+var twod = new dsalgo.arrays.TwoD(5, 5, 1);
+
+console.dir([
+  dsalgo.linear.plus(222220, 111911),
+  twod,
+  dsalgo
+]);
