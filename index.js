@@ -147,7 +147,7 @@ var algo = {
 };
 
 /**
- * creates a matrix and returns
+ * creates a two dimensional array and returns
  * @see datastructures and algorithms in javascript, page 28
  */
 var TwoD = function (_Array) {
@@ -164,8 +164,22 @@ var TwoD = function (_Array) {
 
     var _this = possibleConstructorReturn(this, _Array.call(this));
 
-    _this.columnAverages = function () {
-      return _this.length;
+    _this.rowStats = [];
+
+    _this.calculateRowStats = function () {
+      var skipIsNan = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      _this.forEach(function (row, rowi) {
+        _this.rowStats.push([0]);
+        var isnan = 0;
+        row.forEach(function (num, coli) {
+          if (!isNaN(num)) _this.rowStats[rowi][0] += Number(num);else if (skipIsNan) ++isnan;else _this.rowStats[rowi][0] += 0;
+
+          if (coli + 1 === row.length) _this.rowStats[rowi].push(_this.rowStats[rowi] / (coli + 1 - isnan));
+        });
+      });
+
+      return _this.rowStats;
     };
 
     var arr = [];
@@ -183,6 +197,13 @@ var TwoD = function (_Array) {
     _this.push.apply(_this, arr);
     return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
+
+  /**
+   * calculates stats for all columns containing numbers
+   * @see javascript datastructures and algorithms page 29
+   * @param skipIsNan {boolean} if false, will not skip isNaN
+   */
+
 
   return TwoD;
 }(Array);

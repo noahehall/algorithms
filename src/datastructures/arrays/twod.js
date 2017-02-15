@@ -1,5 +1,5 @@
 /**
- * creates a matrix and returns
+ * creates a two dimensional array and returns
  * @see datastructures and algorithms in javascript, page 28
  */
 export default class TwoD extends Array {
@@ -23,7 +23,27 @@ export default class TwoD extends Array {
     return this;
   }
 
-  columnAverages = () => {
-    return this.length
+  rowStats = [];
+
+  /**
+   * calculates stats for all columns containing numbers
+   * @see javascript datastructures and algorithms page 29
+   * @param skipIsNan {boolean} if false, will not skip isNaN
+   */
+  calculateRowStats = (skipIsNan = true) => {
+    this.forEach((row, rowi) => {
+      this.rowStats.push([0])
+      let isnan = 0;
+      row.forEach((num, coli) => {
+        if (!isNaN(num)) this.rowStats[rowi][0] += Number(num);
+        else if (skipIsNan) ++isnan;
+        else this.rowStats[rowi][0] += 0;
+
+        if (coli + 1 === row.length)
+          this.rowStats[rowi].push(this.rowStats[rowi]/(coli + 1 - isnan))
+      });
+    });
+
+    return this.rowStats;
   }
 }
