@@ -106,6 +106,42 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
+
+
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+
+
+
+
+
+
+
+
+
+
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
 var algo = {
   linear: _extends({}, linear)
 };
@@ -114,24 +150,38 @@ var algo = {
  * creates a matrix and returns
  * @see datastructures and algorithms in javascript, page 28
  */
-var TwoD = function TwoD() {
-  var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2;
-  var cols = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-  var init = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  classCallCheck(this, TwoD);
+var TwoD = function (_Array) {
+  inherits(TwoD, _Array);
 
-  var arr = [];
-  while (rows-- > 0) {
-    var reset = cols;
-    var columns = [];
-    while (cols-- > 0) {
-      columns[columns.length] = init;
+  function TwoD() {
+    var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var cols = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    var _ret;
+
+    var init = arguments[2];
+    classCallCheck(this, TwoD);
+
+    var _this = possibleConstructorReturn(this, _Array.call(this));
+
+    var arr = [];
+    if (Number(rows) > 0) while (rows-- > 0) {
+      var reset = cols;
+      var columns = [];
+      if (Number(cols) > 0) while (cols-- > 0) {
+        columns[columns.length] = init;
+      }
+      arr[arr.length] = columns;
+      cols = reset;
     }
-    arr[arr.length] = columns;
-    cols = reset;
+
+    _this.push.apply(_this, arr);
+
+    return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
-  return arr;
-};
+
+  return TwoD;
+}(Array);
 
 var arrays = {
   TwoD: TwoD

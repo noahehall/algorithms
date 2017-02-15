@@ -2,18 +2,24 @@
  * creates a matrix and returns
  * @see datastructures and algorithms in javascript, page 28
  */
-export default class TwoD {
-  constructor(rows = 2, cols = 2, init = 0) {
+export default class TwoD extends Array {
+  constructor(rows = 0, cols = 0, init) {
+    super();
     const arr = [];
-    while(rows-- > 0) {
-      let reset = cols;
-      const columns = [];
-      while (cols-- > 0) {
-        columns[columns.length] = init;
+    if (Number(rows) > 0)
+      while(rows-- > 0) {
+        let reset = cols;
+        const columns = [];
+        if (Number(cols) > 0)
+          while (cols-- > 0) {
+            columns[columns.length] = init;
+          }
+        arr[arr.length] = columns;
+        cols = reset;
       }
-      arr[arr.length] = columns;
-      cols = reset;
-    }
-    return arr;
+
+    this.push.apply(this, arr);
+
+    return this;
   }
 }
