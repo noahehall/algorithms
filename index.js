@@ -164,6 +164,10 @@ var TwoD = function (_Array) {
 
     var _this = possibleConstructorReturn(this, _Array.call(this));
 
+    _this.columnAverages = function () {
+      return _this.length;
+    };
+
     var arr = [];
     if (Number(rows) > 0) while (rows-- > 0) {
       var reset = cols;
@@ -175,8 +179,8 @@ var TwoD = function (_Array) {
       cols = reset;
     }
 
+    _this.prototype = Object.create(Array.prototype);
     _this.push.apply(_this, arr);
-
     return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
 

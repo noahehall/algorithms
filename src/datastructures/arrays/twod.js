@@ -18,8 +18,12 @@ export default class TwoD extends Array {
         cols = reset;
       }
 
+    this.prototype = Object.create(Array.prototype);
     this.push.apply(this, arr);
-
     return this;
+  }
+
+  columnAverages = () => {
+    return this.length
   }
 }
