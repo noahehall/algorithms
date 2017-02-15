@@ -28,7 +28,7 @@ export default class TwoD extends Array {
   /**
    * calculates stats for all columns containing numbers
    * @see javascript datastructures and algorithms page 29
-   * @param skipIsNan {boolean} if false, will not skip isNaN
+   * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
    */
   calculateRowStats = (skipIsNan = true) => {
     this.forEach((row, rowi) => {
