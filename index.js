@@ -283,8 +283,17 @@ var List = function List() {
   this.pos = 0;
   this.dataStore = [];
 
-  this.insert = function () {
-    // TODO
+  this.insert = function (element, after) {
+    if (validateElement(element) && validateElement(after)) {
+      var index = _this.getIndex(after);
+      if (index > -1) {
+        _this.dataStore.splice(index + 1, 0, element);
+        ++_this.listSize;
+        return element;
+      }
+    }
+
+    return false;
   };
 
   this.append = function (element) {
@@ -335,6 +344,7 @@ var List = function List() {
 
   this.contains = function () {}
   // TODO
+
 
   // UPDATE
   ;

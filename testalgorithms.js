@@ -13,5 +13,6 @@ console.dir([
   twod.calculateColumnStats(),
   list.toString(),
   list.remove('edward'),
-  list.getList()
+  list.getList(),
+  list.insert('edward2', 'noah1')
 ]);

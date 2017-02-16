@@ -17,9 +17,25 @@ export default class List {
 
   // behavior
   // CREATE
-    insert = () => {
-      // TODO
+    /**
+     * inserts and returns element, else false
+     */
+    insert = (element, after) => {
+      if (validateElement(element) && validateElement(after)){
+        const index = this.getIndex(after);
+        if (index > -1) {
+          this.dataStore.splice(index + 1, 0, element);
+          ++this.listSize;
+          return element;
+        }
+      }
+
+      return false;
     }
+
+    /**
+     * appends an element to the end of the list
+     */
     append = (element) => {
       if (validateElement(element)) {
         this.dataStore[this.listSize++] = element;
@@ -50,7 +66,6 @@ export default class List {
 
     toString = () => this.dataStore.toString();
 
-
     length = () => this.listSize;
 
     currentPosition = () => {
@@ -60,6 +75,7 @@ export default class List {
     contains = () => {
       // TODO
     }
+
   // UPDATE
     front = () => {
       // TODO
