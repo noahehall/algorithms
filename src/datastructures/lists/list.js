@@ -81,9 +81,14 @@ export default class List {
       return this;
     }
     // move position to previous element,
-    previous = () => this.position > 0
-      ? --this.position && this
-      : false;
+    previous = () => {
+      if (this.position > 0) {
+        --this.position;
+        return this;
+      }
+
+      return false;
+    }
     // move position to next element
     next = () => {
       if (this.position < this.listSize -1) {
