@@ -23,9 +23,9 @@ export default class TwoD extends Array {
     return this;
   }
 
-  /* in the form [[total, average], [..]] for each row */
+  /* in the form [[N, sum, average], [..]] for each row */
   rowStats = [];
-  /* in the form [[total, average], [..]] for each column */
+  /* in the form [[N, sum, average], [..]] for each column */
   columnStats = [];
 
   /**
@@ -36,15 +36,20 @@ export default class TwoD extends Array {
   calculateRowStats = (skipIsNan = true) => {
     this.rowStats = [];
     this.forEach((row, rowi) => {
-      this.rowStats.push([0])
-      let isnan = 0;
+      this.rowStats.push([0, 0])
       row.forEach((num, coli) => {
-        if (!isNaN(num)) this.rowStats[rowi][0] += Number(num);
-        else if (skipIsNan) ++isnan;
-        else this.rowStats[rowi][0] += 0;
+        if (!isNaN(num)) {
+          // sum
+          this.rowStats[rowi][1] += Number(num);
+          // N
+          this.rowStats[rowi][0]++;
+        }
+        // N
+        else if (skipIsNan) this.rowStats[rowi][0]--;
 
+        // average
         if (coli + 1 === row.length)
-          this.rowStats[rowi].push(this.rowStats[rowi]/(coli + 1 - isnan))
+          this.rowStats[rowi].push(this.rowStats[rowi][1]/(this.rowStats[rowi][0]))
       });
     });
 
@@ -59,19 +64,28 @@ export default class TwoD extends Array {
   calculateColumnStats = (skipIsNan = true) => {
     this.columnStats = [];
     let i = 0, k = this.length;
-    while (k > i++) {
+    while (k > i) {
+      this.columnStats.push([0, 0])
       this.forEach((row, rowi) => {
-        this.columnStats.push([0])
-        let isnan = 0;
         row.forEach((num, coli) => {
-          if (!isNaN(num)) this.columnStats[rowi][i] += Number(num);
-          else if (skipIsNan) ++isnan;
-          else this.columnStats[rowi][i] += 0;
+          if (coli === i) {
+            if (!isNaN(num)) {
+              // sum
+              this.columnStats[i][1] += Number(num);
+              // N
+              this.columnStats[i][0]++;
+            }
+            // N
+            else if (skipIsNan) this.columnStats[i][1]--;
 
-          if (coli + 1 === row.length)
-            this.columnStats[rowi].push(this.columnStats[rowi]/(coli + 1 - isnan))
+            // average
+            if (rowi + 1 === row.length) {
+              this.columnStats[i].push(this.columnStats[i][1]/this.columnStats[i][0])
+            }
+          }
         });
       });
+      i++;
     }
     return this.columnStats;
   }

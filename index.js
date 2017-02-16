@@ -172,12 +172,19 @@ var TwoD = function (_Array) {
 
       _this.rowStats = [];
       _this.forEach(function (row, rowi) {
-        _this.rowStats.push([0]);
-        var isnan = 0;
+        _this.rowStats.push([0, 0]);
         row.forEach(function (num, coli) {
-          if (!isNaN(num)) _this.rowStats[rowi][0] += Number(num);else if (skipIsNan) ++isnan;else _this.rowStats[rowi][0] += 0;
+          if (!isNaN(num)) {
+            // sum
+            _this.rowStats[rowi][1] += Number(num);
+            // N
+            _this.rowStats[rowi][0]++;
+          }
+          // N
+          else if (skipIsNan) _this.rowStats[rowi][0]--;
 
-          if (coli + 1 === row.length) _this.rowStats[rowi].push(_this.rowStats[rowi] / (coli + 1 - isnan));
+          // average
+          if (coli + 1 === row.length) _this.rowStats[rowi].push(_this.rowStats[rowi][1] / _this.rowStats[rowi][0]);
         });
       });
 
@@ -190,16 +197,28 @@ var TwoD = function (_Array) {
       _this.columnStats = [];
       var i = 0,
           k = _this.length;
-      while (k > i++) {
+      while (k > i) {
+        _this.columnStats.push([0, 0]);
         _this.forEach(function (row, rowi) {
-          _this.columnStats.push([0]);
-          var isnan = 0;
           row.forEach(function (num, coli) {
-            if (!isNaN(num)) _this.columnStats[rowi][i] += Number(num);else if (skipIsNan) ++isnan;else _this.columnStats[rowi][i] += 0;
+            if (coli === i) {
+              if (!isNaN(num)) {
+                // sum
+                _this.columnStats[i][1] += Number(num);
+                // N
+                _this.columnStats[i][0]++;
+              }
+              // N
+              else if (skipIsNan) _this.columnStats[i][1]--;
 
-            if (coli + 1 === row.length) _this.columnStats[rowi].push(_this.columnStats[rowi] / (coli + 1 - isnan));
+              // average
+              if (rowi + 1 === row.length) {
+                _this.columnStats[i].push(_this.columnStats[i][1] / _this.columnStats[i][0]);
+              }
+            }
           });
         });
+        i++;
       }
       return _this.columnStats;
     };
@@ -220,9 +239,9 @@ var TwoD = function (_Array) {
     return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
 
-  /* in the form [[total, average], [..]] for each row */
+  /* in the form [[N, sum, average], [..]] for each row */
 
-  /* in the form [[total, average], [..]] for each column */
+  /* in the form [[N, sum, average], [..]] for each column */
 
 
   /**
