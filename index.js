@@ -265,12 +265,110 @@ var arrays = {
   TwoD: TwoD
 };
 
+// validation
+var validateElement = function (element) {
+  return element !== undefined && element !== null;
+};
+
 /**
  * creates a list
  * @see datastructures and algorithms in javascript, page 36
  */
+
 var List = function List() {
+  var _this = this;
+
   classCallCheck(this, List);
+  this.listSize = 0;
+  this.pos = 0;
+  this.dataStore = [];
+
+  this.insert = function () {
+    // TODO
+  };
+
+  this.append = function (element) {
+    if (validateElement(element)) {
+      _this.dataStore[_this.listSize++] = element;
+      return true;
+    }
+
+    return false;
+  };
+
+  this.getIndex = function (element) {
+    if (validateElement(element)) {
+      _this.dataStore.forEach(function (el, i) {
+        if (el === element) return i;
+      });
+    }
+
+    return -1;
+  };
+
+  this.toString = function () {
+    // TODO
+  };
+
+  this.length = function () {
+    return _this.listSize;
+  };
+
+  this.currentPosition = function () {
+    // TODO
+  };
+
+  this.getElement = function () {
+    // TODO
+  };
+
+  this.contains = function () {}
+  // TODO
+
+  // UPDATE
+  ;
+
+  this.front = function () {
+    // TODO
+  };
+
+  this.end = function () {
+    // TODO
+  };
+
+  this.previous = function () {
+    // TODO
+  };
+
+  this.next = function () {
+    // TODO
+  };
+
+  this.moveTo = function () {}
+  // TODO
+
+  // DELETE
+  ;
+
+  this.clear = function () {}
+  // TODO
+
+
+  /**
+   * removes an element, if successful, returns removed element, else false
+   */
+  ;
+
+  this.remove = function (element) {
+    var index = _this.getIndex(element);
+    if (index > -1) {
+      _this.dataStore.splice(index, 1);
+      --_this.listSize;
+      return element;
+    }
+
+    return false;
+  };
 
   return this;
 };

@@ -1,3 +1,6 @@
+// validation
+const validateElement = (element) => element !== undefined && element !== null;
+
 /**
  * creates a list
  * @see datastructures and algorithms in javascript, page 36
@@ -16,20 +19,31 @@ export default class List {
   // CREATE
     insert = () => {
       // TODO
-    append = () => {
-      // TODO
+    }
+    append = (element) => {
+      if (validateElement(element)) {
+        this.dataStore[this.listSize++] = element;
+        return true;
+      }
+
+      return false;
     }
 
   // READ
-    find = () => {
-      // TODO
+    getIndex = (element) => {
+      if (validateElement(element)) {
+        this.dataStore.forEach((el, i) => {
+          if (el === element) return i;
+        });
+      }
+
+      return -1;
     }
     toString = () => {
       // TODO
     }
-    length = () => {
-      // TODO
-    }
+    length = () => this.listSize;
+
     currentPosition = () => {
       // TODO
     }
@@ -59,9 +73,18 @@ export default class List {
     clear = () => {
       // TODO
     }
-    remove = () => {
 
+    /**
+     * removes an element, if successful, returns removed element, else false
+     */
+    remove = (element) => {
+      const index = this.getIndex(element);
+      if (index > -1) {
+        this.dataStore.splice(index, 1);
+        --this.listSize;
+        return element;
+      }
+
+      return false;
     }
-
-
 }
