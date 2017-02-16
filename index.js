@@ -297,17 +297,22 @@ var List = function List() {
   };
 
   this.getIndex = function (element) {
+    var index = -1;
     if (validateElement(element)) {
-      _this.dataStore.forEach(function (el, i) {
-        if (el === element) return i;
+      _this.dataStore.some(function (el, i) {
+        if (el === element) index = i;
       });
     }
 
-    return -1;
+    return index;
+  };
+
+  this.getList = function () {
+    return _this.dataStore;
   };
 
   this.toString = function () {
-    // TODO
+    return _this.dataStore.toString();
   };
 
   this.length = function () {

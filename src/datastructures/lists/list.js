@@ -31,17 +31,21 @@ export default class List {
 
   // READ
     getIndex = (element) => {
+      let index = -1;
       if (validateElement(element)) {
-        this.dataStore.forEach((el, i) => {
-          if (el === element) return i;
+        this.dataStore.some((el, i) => {
+          if (el === element) index = i;
         });
       }
 
-      return -1;
+      return index;
     }
-    toString = () => {
-      // TODO
-    }
+
+    getList = () => this.dataStore;
+
+    toString = () => this.dataStore.toString();
+
+
     length = () => this.listSize;
 
     currentPosition = () => {
