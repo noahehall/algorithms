@@ -12,7 +12,7 @@ export default class List {
 
   // properties
   listSize = 0;
-  pos = 0;
+  position = 0;
   dataStore = [];
 
   // behavior
@@ -59,42 +59,40 @@ export default class List {
       return that;
     }
 
+    // i.e. contains, useful to see if element exists in list
     getElement = (element) => this.get(element, true);
     getIndex = (element) => this.get(element);
-
+    getCurrentElement = () => this.dataStore[this.position];
     getList = () => this.dataStore;
 
     toString = () => this.dataStore.toString();
-
     length = () => this.listSize;
-
-    currentPosition = () => {
-      // TODO
-    }
-
-    contains = () => {
-      // TODO
-    }
+    currentPosition = () => this.position;
 
   // UPDATE
-    front = () => {
-      // TODO
-    }
-    end = () => {
-      // TODO
-    }
-    previous = () => {
-      // TODO
-    }
-    next = () => {
-      // TODO
-    }
-    moveTo = () => {
-      // TODO
-    }
+    // move position to front of list
+    front = () => this.position = 0 && true;
+    // move position to end of list
+    end = () => this.position = this.listSize -1 && true;
+    // move position to previous element,
+    previous = () => this.position > 0
+      ? --this.position && true
+      : false;
+    // move position to next element
+    next = () => this.position < this.listSize -1
+      ? ++this.position && true
+      : false;
+    // move position to a specific element
+    moveTo = (index) => Number(index) > -1 && Number(index) < this.listSize -1
+      ? this.position = Number(index) && true
+      : false;
+
   // DELETE
     clear = () => {
-      // TODO
+      this.dataStore = [];
+      this.listSize = this.position = 0;
+
+      return true;
     }
 
     /**

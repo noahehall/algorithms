@@ -280,7 +280,7 @@ var List = function List() {
 
   classCallCheck(this, List);
   this.listSize = 0;
-  this.pos = 0;
+  this.position = 0;
   this.dataStore = [];
 
   this.insert = function (element, after) {
@@ -326,6 +326,10 @@ var List = function List() {
     return _this.get(element);
   };
 
+  this.getCurrentElement = function () {
+    return _this.dataStore[_this.position];
+  };
+
   this.getList = function () {
     return _this.dataStore;
   };
@@ -339,46 +343,35 @@ var List = function List() {
   };
 
   this.currentPosition = function () {
-    // TODO
+    return _this.position;
   };
 
-  this.contains = function () {}
-  // TODO
-
-
-  // UPDATE
-  ;
-
   this.front = function () {
-    // TODO
+    return _this.position = 0 && true;
   };
 
   this.end = function () {
-    // TODO
+    return _this.position = _this.listSize - 1 && true;
   };
 
   this.previous = function () {
-    // TODO
+    return _this.position > 0 ? --_this.position && true : false;
   };
 
   this.next = function () {
-    // TODO
+    return _this.position < _this.listSize - 1 ? ++_this.position && true : false;
   };
 
-  this.moveTo = function () {}
-  // TODO
+  this.moveTo = function (index) {
+    return Number(index) > -1 && Number(index) < _this.listSize - 1 ? _this.position = Number(index) && true : false;
+  };
 
-  // DELETE
-  ;
+  this.clear = function () {
+    _this.dataStore = [];
+    _this.listSize = _this.position = 0;
 
-  this.clear = function () {}
-  // TODO
-
-
-  /**
-   * removes an element, if successful, returns removed element, else false
-   */
-  ;
+    return true;
+  };
 
   this.remove = function (element) {
     var index = _this.getIndex(element);
