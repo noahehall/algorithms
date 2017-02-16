@@ -283,8 +283,17 @@ var List = function List() {
   this.pos = 0;
   this.dataStore = [];
 
-  this.insert = function () {
-    // TODO
+  this.insert = function (element, after) {
+    if (validateElement(element) && validateElement(after)) {
+      var index = _this.getIndex(after);
+      if (index > -1) {
+        _this.dataStore.splice(index + 1, 0, element);
+        ++_this.listSize;
+        return element;
+      }
+    }
+
+    return false;
   };
 
   this.append = function (element) {
@@ -296,18 +305,33 @@ var List = function List() {
     return false;
   };
 
-  this.getIndex = function (element) {
+  this.get = function (element) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'index';
+
+    var that = -1;
     if (validateElement(element)) {
-      _this.dataStore.forEach(function (el, i) {
-        if (el === element) return i;
+      _this.dataStore.some(function (el, i) {
+        if (el === element) that = type === 'index' ? i : el;
       });
     }
 
-    return -1;
+    return that;
+  };
+
+  this.getElement = function (element) {
+    return _this.get(element, true);
+  };
+
+  this.getIndex = function (element) {
+    return _this.get(element);
+  };
+
+  this.getList = function () {
+    return _this.dataStore;
   };
 
   this.toString = function () {
-    // TODO
+    return _this.dataStore.toString();
   };
 
   this.length = function () {
@@ -318,12 +342,9 @@ var List = function List() {
     // TODO
   };
 
-  this.getElement = function () {
-    // TODO
-  };
-
   this.contains = function () {}
   // TODO
+
 
   // UPDATE
   ;
