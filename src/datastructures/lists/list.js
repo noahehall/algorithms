@@ -34,12 +34,12 @@ export default class List {
     }
 
     /**
-     * appends an element to the end of the list
+     * appends an element to the end of the list and returns this
      */
     append = (element) => {
       if (validateElement(element)) {
         this.dataStore[this.listSize++] = element;
-        return true;
+        return this;
       }
 
       return false;
@@ -71,39 +71,53 @@ export default class List {
 
   // UPDATE
     // move position to front of list
-    front = () => this.position = 0 && true;
+    front = () => {
+      this.position = 0;
+      return this;
+    }
     // move position to end of list
-    end = () => this.position = this.listSize -1 && true;
+    end = () => {
+      this.position = this.listSize -1;
+      return this;
+    }
     // move position to previous element,
     previous = () => this.position > 0
-      ? --this.position && true
+      ? --this.position && this
       : false;
     // move position to next element
-    next = () => this.position < this.listSize -1
-      ? ++this.position && true
-      : false;
+    next = () => {
+      if (this.position < this.listSize -1) {
+        ++this.position;
+        return this;
+      }
+      return false;
+    }
     // move position to a specific element
-    moveTo = (index) => Number(index) > -1 && Number(index) < this.listSize -1
-      ? this.position = Number(index) && true
-      : false;
+    moveTo = (index) => {
+      if (Number(index) > -1 && Number(index) < this.listSize -1) {
+        this.position = Number(index);
+        return this;
+      }
+      return false;
+    }
 
   // DELETE
     clear = () => {
       this.dataStore = [];
       this.listSize = this.position = 0;
 
-      return true;
+      return this;
     }
 
     /**
-     * removes an element, if successful, returns removed element, else false
+     * removes an element, if successful, returns this, else false
      */
     remove = (element) => {
       const index = this.getIndex(element);
       if (index > -1) {
         this.dataStore.splice(index, 1);
         --this.listSize;
-        return element;
+        return this;
       }
 
       return false;

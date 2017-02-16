@@ -299,7 +299,7 @@ var List = function List() {
   this.append = function (element) {
     if (validateElement(element)) {
       _this.dataStore[_this.listSize++] = element;
-      return true;
+      return _this;
     }
 
     return false;
@@ -347,30 +347,40 @@ var List = function List() {
   };
 
   this.front = function () {
-    return _this.position = 0 && true;
+    _this.position = 0;
+    return _this;
   };
 
   this.end = function () {
-    return _this.position = _this.listSize - 1 && true;
+    _this.position = _this.listSize - 1;
+    return _this;
   };
 
   this.previous = function () {
-    return _this.position > 0 ? --_this.position && true : false;
+    return _this.position > 0 ? --_this.position && _this : false;
   };
 
   this.next = function () {
-    return _this.position < _this.listSize - 1 ? ++_this.position && true : false;
+    if (_this.position < _this.listSize - 1) {
+      ++_this.position;
+      return _this;
+    }
+    return false;
   };
 
   this.moveTo = function (index) {
-    return Number(index) > -1 && Number(index) < _this.listSize - 1 ? _this.position = Number(index) && true : false;
+    if (Number(index) > -1 && Number(index) < _this.listSize - 1) {
+      _this.position = Number(index);
+      return _this;
+    }
+    return false;
   };
 
   this.clear = function () {
     _this.dataStore = [];
     _this.listSize = _this.position = 0;
 
-    return true;
+    return _this;
   };
 
   this.remove = function (element) {
@@ -378,7 +388,7 @@ var List = function List() {
     if (index > -1) {
       _this.dataStore.splice(index, 1);
       --_this.listSize;
-      return element;
+      return _this;
     }
 
     return false;
