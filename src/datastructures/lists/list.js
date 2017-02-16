@@ -30,16 +30,21 @@ export default class List {
     }
 
   // READ
-    getIndex = (element) => {
-      let index = -1;
+    get = (element, type = 'index') => {
+      let that = -1;
       if (validateElement(element)) {
         this.dataStore.some((el, i) => {
-          if (el === element) index = i;
+          if (el === element) that = type === 'index'
+            ? i
+            : el;
         });
       }
 
-      return index;
+      return that;
     }
+
+    getElement = (element) => this.get(element, true);
+    getIndex = (element) => this.get(element);
 
     getList = () => this.dataStore;
 
@@ -51,9 +56,7 @@ export default class List {
     currentPosition = () => {
       // TODO
     }
-    getElement = () => {
-      // TODO
-    }
+
     contains = () => {
       // TODO
     }

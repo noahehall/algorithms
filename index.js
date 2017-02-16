@@ -296,15 +296,25 @@ var List = function List() {
     return false;
   };
 
-  this.getIndex = function (element) {
-    var index = -1;
+  this.get = function (element) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'index';
+
+    var that = -1;
     if (validateElement(element)) {
       _this.dataStore.some(function (el, i) {
-        if (el === element) index = i;
+        if (el === element) that = type === 'index' ? i : el;
       });
     }
 
-    return index;
+    return that;
+  };
+
+  this.getElement = function (element) {
+    return _this.get(element, true);
+  };
+
+  this.getIndex = function (element) {
+    return _this.get(element);
   };
 
   this.getList = function () {
@@ -320,10 +330,6 @@ var List = function List() {
   };
 
   this.currentPosition = function () {
-    // TODO
-  };
-
-  this.getElement = function () {
     // TODO
   };
 
