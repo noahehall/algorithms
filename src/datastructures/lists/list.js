@@ -12,7 +12,7 @@ export default class List {
 
   // properties
   listSize = 0;
-  pos = 0;
+  position = 0;
   dataStore = [];
 
   // behavior
@@ -34,12 +34,12 @@ export default class List {
     }
 
     /**
-     * appends an element to the end of the list
+     * appends an element to the end of the list and returns this
      */
     append = (element) => {
       if (validateElement(element)) {
         this.dataStore[this.listSize++] = element;
-        return true;
+        return this;
       }
 
       return false;
@@ -59,53 +59,65 @@ export default class List {
       return that;
     }
 
+    // i.e. contains, useful to see if element exists in list
     getElement = (element) => this.get(element, true);
     getIndex = (element) => this.get(element);
-
+    getCurrentElement = () => this.dataStore[this.position];
     getList = () => this.dataStore;
 
     toString = () => this.dataStore.toString();
-
     length = () => this.listSize;
-
-    currentPosition = () => {
-      // TODO
-    }
-
-    contains = () => {
-      // TODO
-    }
+    currentPosition = () => this.position;
 
   // UPDATE
+    // move position to front of list
     front = () => {
-      // TODO
+      this.position = 0;
+      return this;
     }
+    // move position to end of list
     end = () => {
-      // TODO
+      this.position = this.listSize -1;
+      return this;
     }
-    previous = () => {
-      // TODO
-    }
+    // move position to previous element,
+    previous = () => this.position > 0
+      ? --this.position && this
+      : false;
+    // move position to next element
     next = () => {
-      // TODO
+      if (this.position < this.listSize -1) {
+        ++this.position;
+        return this;
+      }
+      return false;
     }
-    moveTo = () => {
-      // TODO
+    // move position to a specific element
+    moveTo = (index) => {
+      if (Number(index) > -1 && Number(index) < this.listSize -1) {
+        this.position = Number(index);
+        return this;
+      }
+      return false;
     }
+
   // DELETE
     clear = () => {
-      // TODO
+      this.dataStore = [];
+      this.listSize = this.position = 0;
+
+      return this;
     }
 
     /**
-     * removes an element, if successful, returns removed element, else false
+     * removes an element, if successful, returns this, else false
      */
     remove = (element) => {
       const index = this.getIndex(element);
       if (index > -1) {
         this.dataStore.splice(index, 1);
         --this.listSize;
-        return element;
+        return this;
       }
 
       return false;

@@ -12,7 +12,10 @@ console.dir([
   twod.calculateRowStats(false),
   twod.calculateColumnStats(),
   list.toString(),
-  list.remove('edward'),
-  list.getList(),
-  list.insert('edward2', 'noah1')
+  list.front().getCurrentElement(),
+  list.getCurrentElement(),
+  list.next(),
+  list.getCurrentElement(),
+  list.previous(),
+  list.getCurrentElement()
 ]);

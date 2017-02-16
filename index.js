@@ -280,7 +280,7 @@ var List = function List() {
 
   classCallCheck(this, List);
   this.listSize = 0;
-  this.pos = 0;
+  this.position = 0;
   this.dataStore = [];
 
   this.insert = function (element, after) {
@@ -299,7 +299,7 @@ var List = function List() {
   this.append = function (element) {
     if (validateElement(element)) {
       _this.dataStore[_this.listSize++] = element;
-      return true;
+      return _this;
     }
 
     return false;
@@ -326,6 +326,10 @@ var List = function List() {
     return _this.get(element);
   };
 
+  this.getCurrentElement = function () {
+    return _this.dataStore[_this.position];
+  };
+
   this.getList = function () {
     return _this.dataStore;
   };
@@ -339,53 +343,52 @@ var List = function List() {
   };
 
   this.currentPosition = function () {
-    // TODO
+    return _this.position;
   };
 
-  this.contains = function () {}
-  // TODO
-
-
-  // UPDATE
-  ;
-
   this.front = function () {
-    // TODO
+    _this.position = 0;
+    return _this;
   };
 
   this.end = function () {
-    // TODO
+    _this.position = _this.listSize - 1;
+    return _this;
   };
 
   this.previous = function () {
-    // TODO
+    return _this.position > 0 ? --_this.position && _this : false;
   };
 
   this.next = function () {
-    // TODO
+    if (_this.position < _this.listSize - 1) {
+      ++_this.position;
+      return _this;
+    }
+    return false;
   };
 
-  this.moveTo = function () {}
-  // TODO
+  this.moveTo = function (index) {
+    if (Number(index) > -1 && Number(index) < _this.listSize - 1) {
+      _this.position = Number(index);
+      return _this;
+    }
+    return false;
+  };
 
-  // DELETE
-  ;
+  this.clear = function () {
+    _this.dataStore = [];
+    _this.listSize = _this.position = 0;
 
-  this.clear = function () {}
-  // TODO
-
-
-  /**
-   * removes an element, if successful, returns removed element, else false
-   */
-  ;
+    return _this;
+  };
 
   this.remove = function (element) {
     var index = _this.getIndex(element);
     if (index > -1) {
       _this.dataStore.splice(index, 1);
       --_this.listSize;
-      return element;
+      return _this;
     }
 
     return false;
