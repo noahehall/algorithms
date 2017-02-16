@@ -357,7 +357,12 @@ var List = function List() {
   };
 
   this.previous = function () {
-    return _this.position > 0 ? --_this.position && _this : false;
+    if (_this.position > 0) {
+      --_this.position;
+      return _this;
+    }
+
+    return false;
   };
 
   this.next = function () {

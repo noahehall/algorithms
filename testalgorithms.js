@@ -13,9 +13,6 @@ console.dir([
   twod.calculateColumnStats(),
   list.toString(),
   list.front().getCurrentElement(),
-  list.getCurrentElement(),
-  list.next(),
-  list.getCurrentElement(),
-  list.previous(),
-  list.getCurrentElement()
+  list.next().getCurrentElement(),
+  list.previous().next().getCurrentElement()
 ]);
