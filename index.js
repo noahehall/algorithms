@@ -245,7 +245,7 @@ var TwoD = function (_Array) {
 
 
   /**
-   * calculates stats for all columns containing numbers
+   * calculates stats for all rows containing numbers
    * @see javascript datastructures and algorithms page 29
    * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
    */
@@ -265,8 +265,23 @@ var arrays = {
   TwoD: TwoD
 };
 
+/**
+ * creates a list
+ * @see datastructures and algorithms in javascript, page 36
+ */
+var List = function List() {
+  classCallCheck(this, List);
+
+  return this;
+};
+
+var lists = {
+  List: List
+};
+
 var ds = {
-  arrays: _extends({}, arrays)
+  arrays: _extends({}, arrays),
+  lists: _extends({}, lists)
 };
 
 var index = _extends({}, algo, ds);

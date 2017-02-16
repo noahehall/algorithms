@@ -29,7 +29,7 @@ export default class TwoD extends Array {
   columnStats = [];
 
   /**
-   * calculates stats for all columns containing numbers
+   * calculates stats for all rows containing numbers
    * @see javascript datastructures and algorithms page 29
    * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
    */
