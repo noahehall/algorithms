@@ -147,7 +147,7 @@ var algo = {
 };
 
 /**
- * creates a matrix and returns
+ * creates a two dimensional array and returns
  * @see datastructures and algorithms in javascript, page 28
  */
 var TwoD = function (_Array) {
@@ -164,6 +164,65 @@ var TwoD = function (_Array) {
 
     var _this = possibleConstructorReturn(this, _Array.call(this));
 
+    _this.rowStats = [];
+    _this.columnStats = [];
+
+    _this.calculateRowStats = function () {
+      var skipIsNan = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      _this.rowStats = [];
+      _this.forEach(function (row, rowi) {
+        _this.rowStats.push([0, 0]);
+        row.forEach(function (num, coli) {
+          if (!isNaN(num)) {
+            // sum
+            _this.rowStats[rowi][1] += Number(num);
+            // N
+            _this.rowStats[rowi][0]++;
+          }
+          // N
+          else if (skipIsNan) _this.rowStats[rowi][0]--;
+
+          // average
+          if (coli + 1 === row.length) _this.rowStats[rowi].push(_this.rowStats[rowi][1] / _this.rowStats[rowi][0]);
+        });
+      });
+
+      return _this.rowStats;
+    };
+
+    _this.calculateColumnStats = function () {
+      var skipIsNan = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      _this.columnStats = [];
+      var i = 0,
+          k = _this.length;
+      while (k > i) {
+        _this.columnStats.push([0, 0]);
+        _this.forEach(function (row, rowi) {
+          row.forEach(function (num, coli) {
+            if (coli === i) {
+              if (!isNaN(num)) {
+                // sum
+                _this.columnStats[i][1] += Number(num);
+                // N
+                _this.columnStats[i][0]++;
+              }
+              // N
+              else if (skipIsNan) _this.columnStats[i][1]--;
+
+              // average
+              if (rowi + 1 === row.length) {
+                _this.columnStats[i].push(_this.columnStats[i][1] / _this.columnStats[i][0]);
+              }
+            }
+          });
+        });
+        i++;
+      }
+      return _this.columnStats;
+    };
+
     var arr = [];
     if (Number(rows) > 0) while (rows-- > 0) {
       var reset = cols;
@@ -175,10 +234,29 @@ var TwoD = function (_Array) {
       cols = reset;
     }
 
+    _this.prototype = Object.create(Array.prototype);
     _this.push.apply(_this, arr);
-
     return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
+
+  /* in the form [[N, sum, average], [..]] for each row */
+
+  /* in the form [[N, sum, average], [..]] for each column */
+
+
+  /**
+   * calculates stats for all columns containing numbers
+   * @see javascript datastructures and algorithms page 29
+   * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
+   */
+
+
+  /**
+   * calculates stats for all columns containing numbers
+   * @see javascript datastructures and algorithms page 29
+   * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
+   */
+
 
   return TwoD;
 }(Array);
