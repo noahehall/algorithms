@@ -165,10 +165,12 @@ var TwoD = function (_Array) {
     var _this = possibleConstructorReturn(this, _Array.call(this));
 
     _this.rowStats = [];
+    _this.columnStats = [];
 
     _this.calculateRowStats = function () {
       var skipIsNan = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
+      _this.rowStats = [];
       _this.forEach(function (row, rowi) {
         _this.rowStats.push([0]);
         var isnan = 0;
@@ -180,6 +182,26 @@ var TwoD = function (_Array) {
       });
 
       return _this.rowStats;
+    };
+
+    _this.calculateColumnStats = function () {
+      var skipIsNan = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      _this.columnStats = [];
+      var i = 0,
+          k = _this.length;
+      while (k > i++) {
+        _this.forEach(function (row, rowi) {
+          _this.columnStats.push([0]);
+          var isnan = 0;
+          row.forEach(function (num, coli) {
+            if (!isNaN(num)) _this.columnStats[rowi][i] += Number(num);else if (skipIsNan) ++isnan;else _this.columnStats[rowi][i] += 0;
+
+            if (coli + 1 === row.length) _this.columnStats[rowi].push(_this.columnStats[rowi] / (coli + 1 - isnan));
+          });
+        });
+      }
+      return _this.columnStats;
     };
 
     var arr = [];
@@ -198,10 +220,22 @@ var TwoD = function (_Array) {
     return _ret = _this, possibleConstructorReturn(_this, _ret);
   }
 
+  /* in the form [[total, average], [..]] for each row */
+
+  /* in the form [[total, average], [..]] for each column */
+
+
   /**
    * calculates stats for all columns containing numbers
    * @see javascript datastructures and algorithms page 29
-   * @param skipIsNan {boolean} if false, will not skip isNaN
+   * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
+   */
+
+
+  /**
+   * calculates stats for all columns containing numbers
+   * @see javascript datastructures and algorithms page 29
+   * @param skipIsNan [boolean=true] if true, will not include isNaN in calculations
    */
 
 
