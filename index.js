@@ -2338,10 +2338,6 @@ var List = function List() {
 
   _classCallCheck(this, List);
 
-  this.length = 0;
-  this.position = 0;
-  this.dataStore = [];
-
   this.insert = function (element, after) {
     if (validateElement(element) && validateElement(after)) {
       var index = _this.getIndex(after);
@@ -2448,7 +2444,7 @@ var List = function List() {
     var _iteratorError = undefined;
 
     try {
-      for (var _iterator = _getIterator(backwards ? _this.genEachBackward() : _this.genEachForward()), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      for (var _iterator = _getIterator(!backwards ? _this.genEachForward() : _this.genEachBackward()), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var element = _step.value;
 
         process(element, _this.position, _this.dataStore);
@@ -2530,8 +2526,56 @@ var List = function List() {
     }, _callee2, this);
   });
 
+  this.length = 0;
+  this.position = 0;
+  this.dataStore = [];
   return this;
 };
+
+var $export$7 = _export;
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export$7($export$7.S + $export$7.F * !_descriptors, 'Object', {defineProperty: _objectDp.f});
+
+var $Object$1 = _core.Object;
+var defineProperty$3 = function defineProperty(it, key, desc){
+  return $Object$1.defineProperty(it, key, desc);
+};
+
+var defineProperty$1 = createCommonjsModule(function (module) {
+module.exports = { "default": defineProperty$3, __esModule: true };
+});
+
+var createClass = createCommonjsModule(function (module, exports) {
+"use strict";
+
+exports.__esModule = true;
+
+var _defineProperty = defineProperty$1;
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+});
+
+var _createClass = unwrapExports(createClass);
 
 var Stack = function (_List) {
   _inherits(Stack, _List);
@@ -2539,8 +2583,20 @@ var Stack = function (_List) {
   function Stack() {
     _classCallCheck(this, Stack);
 
-    return _possibleConstructorReturn(this, (Stack.__proto__ || _Object$getPrototypeOf(Stack)).call(this));
+    var _this = _possibleConstructorReturn(this, (Stack.__proto__ || _Object$getPrototypeOf(Stack)).call(this));
+
+    _this.push = _this.append;
+    return _this;
   }
+
+  _createClass(Stack, [{
+    key: 'top',
+    get: function get() {
+      return this.length;
+    }
+    // behavior
+
+  }]);
 
   return Stack;
 }(List);

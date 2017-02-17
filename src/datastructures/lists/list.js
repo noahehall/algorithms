@@ -7,15 +7,12 @@ const validateElement = (element) => element !== undefined && element !== null;
  */
 export default class List {
   constructor() {
+    this.length = 0;
+    this.position = 0;
+    this.dataStore = [];
     return this;
   }
-
-  // properties
-  length = 0;
-  position = 0;
-  dataStore = [];
-
-  // behavior
+  
   // CREATE
     /**
      * inserts and returns element, else false
@@ -123,7 +120,7 @@ export default class List {
     // loop forward
     forEach = (process, backwards = false) => {
       for (let element of !backwards ? this.genEachForward() : this.genEachBackward())
-      process (element, this.position, this.dataStore);
+        process (element, this.position, this.dataStore);
 
       return this;
     }
