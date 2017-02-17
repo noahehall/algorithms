@@ -1,8 +1,9 @@
+import BaseArray from './base.js';
 /**
  * creates a two dimensional array and returns
  * @see datastructures and algorithms in javascript, page 28
  */
-export default class TwoD extends Array {
+export default class TwoD extends BaseArray {
   constructor(rows = 0, cols = 0, init) {
     super();
     const arr = [];
@@ -18,7 +19,6 @@ export default class TwoD extends Array {
         cols = reset;
       }
 
-    this.prototype = Object.create(Array.prototype);
     this.push.apply(this, arr);
     return this;
   }

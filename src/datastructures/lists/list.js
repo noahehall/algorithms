@@ -103,14 +103,14 @@ export default class List {
     }
 
     /**
-     * removes an element, if successful, returns this, else false
+     * removes an element, if successful, returns this/element, else false
      */
-    remove = (element) => {
+    remove = (element, returnElement = false) => {
       const index = this.getIndex(element);
       if (index > -1) {
-        this.dataStore.splice(index, 1);
         --this.length;
-        return this;
+
+        return [this.dataStore.splice(index, 1)[0], this][!returnElement ? 1 : 0];
       }
 
       return false;

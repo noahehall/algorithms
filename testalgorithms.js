@@ -8,19 +8,20 @@ list.append('edward');
 list.append('hall');
 
 var stack = new dsalgo.lists.Stack();
+stack.push('noah')
+var queue = new dsalgo.lists.Queue();
 
 console.dir([
   dsalgo,
   dsalgo.linear.plus(222220, 111911),
   twod.calculateRowStats(false),
   twod.calculateColumnStats(),
-  list.constructor,
-  list.forEach((el, i) => console.log(el, i)),
+  typeof list,
   stack.top,
-  stack.push('noah'),
   stack.peek(),
-  stack.top,
+  stack.pop(),
   stack.pop(),
   stack.top,
-  stack.insert
+  typeof queue,
+  queue.constructor
 ]);
