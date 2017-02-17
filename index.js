@@ -410,8 +410,20 @@ var List = function List() {
   return this;
 };
 
+var Stack = function (_List) {
+  inherits(Stack, _List);
+
+  function Stack() {
+    classCallCheck(this, Stack);
+    return possibleConstructorReturn(this, _List.call(this));
+  }
+
+  return Stack;
+}(List);
+
 var lists = {
-  List: List
+  List: List,
+  Stack: Stack
 };
 
 var ds = {
