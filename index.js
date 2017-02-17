@@ -2577,6 +2577,11 @@ exports.default = function () {
 
 var _createClass = unwrapExports(createClass);
 
+/**
+ * creates a Stack
+ * @see datastructures and algorithms in javascript, page 49
+ */
+
 var Stack = function (_List) {
   _inherits(Stack, _List);
 
@@ -2586,15 +2591,43 @@ var Stack = function (_List) {
     var _this = _possibleConstructorReturn(this, (Stack.__proto__ || _Object$getPrototypeOf(Stack)).call(this));
 
     _this.push = _this.append;
+
+    _this.peek = function () {
+      return _this.getCurrentElement();
+    };
+
+    _this.pop = function () {
+      if (_this.top) {
+        var element = _this.getCurrentElement();
+        _this.remove(element);
+        return element;
+      }
+
+      return false;
+    };
+
     return _this;
   }
 
+  // behavior
+  // CREATE
+
+
   _createClass(Stack, [{
     key: 'top',
+
+
+    // READ
     get: function get() {
       return this.length;
     }
-    // behavior
+
+    // get current element, but dont remove it
+
+
+    // UPDATE
+
+    // DELETE
 
   }]);
 

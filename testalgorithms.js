@@ -18,6 +18,9 @@ console.dir([
   list.forEach((el, i) => console.log(el, i)),
   stack.top,
   stack.push('noah'),
+  stack.peek(),
   stack.top,
+  stack.pop(),
   stack.top,
+  stack.insert
 ]);

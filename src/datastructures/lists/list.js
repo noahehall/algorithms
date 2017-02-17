@@ -12,7 +12,7 @@ export default class List {
     this.dataStore = [];
     return this;
   }
-  
+
   // CREATE
     /**
      * inserts and returns element, else false
