@@ -63,7 +63,7 @@ export default class List {
     getElement = (element) => this.get(element, true);
     getIndex = (element) => this.get(element);
     getCurrentElement = () => this.dataStore[this.position];
-    getList = () => this.dataStore;
+    getAll = () => this.dataStore;
 
     toString = () => this.dataStore.toString();
 
@@ -79,22 +79,15 @@ export default class List {
       return this;
     }
     // move position to previous element,
-    previous = () => {
-      if (this.position > -1) {
-        --this.position;
-        return this;
-      }
+    previous = () => this.position-- > 0
+      ? this
+      : false;
 
-      return false;
-    }
     // move position to next element
-    next = () => {
-      if (this.position < this.length) {
-        ++this.position;
-        return this;
-      }
-      return false;
-    }
+    next = () => this.position++ < this.length - 1
+      ? this
+      : false;
+
     // move position to a specific element
     moveTo = (index) => {
       if (Number(index) > -1 && Number(index) < this.length -1) {
@@ -128,20 +121,24 @@ export default class List {
 
   // ITERATION
     // loop forward
-    forEach = (process) => {
-     for (this.front(); this.position < this.length; this.next()) {
-       process (this.getCurrentElement(), this.position, this.dataStore);
-     }
+    forEach = (process, backwards = false) => {
+      for (let element of !backwards ? this.genEachForward() : this.genEachBackward())
+      process (element, this.position, this.dataStore);
 
-     return this;
+      return this;
     }
 
-    // loop backword
-    backEach = (process) => {
-     for (this.end(); this.position > -1; this.previous()) {
-       process (this.getCurrentElement(), this.position, this.dataStore);
-     }
+    // generator loop forward
+    genEachForward = function* () {
+      this.front();
+      yield this.getCurrentElement();
+      while (this.next()) yield this.getCurrentElement();
+    }
 
-     return this;
+    // generator loop backward
+    genEachBackward = function* () {
+      this.end();
+      yield this.getCurrentElement();
+      while (this.previous()) yield this.getCurrentElement();
     }
 }
