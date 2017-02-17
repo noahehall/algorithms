@@ -122,7 +122,7 @@ export default class List {
   // ITERATION
     // loop forward
     forEach = (process, backwards = false) => {
-      for (let element of backwards ? this.genEachBackward() : this.genEachForward())
+      for (let element of !backwards ? this.genEachForward() : this.genEachBackward())
       process (element, this.position, this.dataStore);
 
       return this;
