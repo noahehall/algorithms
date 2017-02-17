@@ -11,7 +11,7 @@ export default class List {
   }
 
   // properties
-  listSize = 0;
+  length = 0;
   position = 0;
   dataStore = [];
 
@@ -25,7 +25,7 @@ export default class List {
         const index = this.getIndex(after);
         if (index > -1) {
           this.dataStore.splice(index + 1, 0, element);
-          ++this.listSize;
+          ++this.length;
           return element;
         }
       }
@@ -38,7 +38,7 @@ export default class List {
      */
     append = (element) => {
       if (validateElement(element)) {
-        this.dataStore[this.listSize++] = element;
+        this.dataStore[this.length++] = element;
         return this;
       }
 
@@ -66,8 +66,6 @@ export default class List {
     getList = () => this.dataStore;
 
     toString = () => this.dataStore.toString();
-    length = () => this.listSize;
-    currentPosition = () => this.position;
 
   // UPDATE
     // move position to front of list
@@ -77,12 +75,12 @@ export default class List {
     }
     // move position to end of list
     end = () => {
-      this.position = this.listSize -1;
+      this.position = this.length -1;
       return this;
     }
     // move position to previous element,
     previous = () => {
-      if (this.position > 0) {
+      if (this.position > -1) {
         --this.position;
         return this;
       }
@@ -91,7 +89,7 @@ export default class List {
     }
     // move position to next element
     next = () => {
-      if (this.position < this.listSize -1) {
+      if (this.position < this.length) {
         ++this.position;
         return this;
       }
@@ -99,7 +97,7 @@ export default class List {
     }
     // move position to a specific element
     moveTo = (index) => {
-      if (Number(index) > -1 && Number(index) < this.listSize -1) {
+      if (Number(index) > -1 && Number(index) < this.length -1) {
         this.position = Number(index);
         return this;
       }
@@ -109,7 +107,7 @@ export default class List {
   // DELETE
     clear = () => {
       this.dataStore = [];
-      this.listSize = this.position = 0;
+      this.length = this.position = 0;
 
       return this;
     }
@@ -121,10 +119,29 @@ export default class List {
       const index = this.getIndex(element);
       if (index > -1) {
         this.dataStore.splice(index, 1);
-        --this.listSize;
+        --this.length;
         return this;
       }
 
       return false;
+    }
+
+  // ITERATION
+    // loop forward
+    forEach = (process) => {
+     for (this.front(); this.position < this.length; this.next()) {
+       process (this.getCurrentElement(), this.position, this.dataStore);
+     }
+
+     return this;
+    }
+
+    // loop backword
+    backEach = (process) => {
+     for (this.end(); this.position > -1; this.previous()) {
+       process (this.getCurrentElement(), this.position, this.dataStore);
+     }
+
+     return this;
     }
 }
