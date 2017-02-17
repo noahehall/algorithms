@@ -279,7 +279,7 @@ var List = function List() {
   var _this = this;
 
   classCallCheck(this, List);
-  this.listSize = 0;
+  this.length = 0;
   this.position = 0;
   this.dataStore = [];
 
@@ -288,7 +288,7 @@ var List = function List() {
       var index = _this.getIndex(after);
       if (index > -1) {
         _this.dataStore.splice(index + 1, 0, element);
-        ++_this.listSize;
+        ++_this.length;
         return element;
       }
     }
@@ -298,7 +298,7 @@ var List = function List() {
 
   this.append = function (element) {
     if (validateElement(element)) {
-      _this.dataStore[_this.listSize++] = element;
+      _this.dataStore[_this.length++] = element;
       return _this;
     }
 
@@ -338,26 +338,18 @@ var List = function List() {
     return _this.dataStore.toString();
   };
 
-  this.length = function () {
-    return _this.listSize;
-  };
-
-  this.currentPosition = function () {
-    return _this.position;
-  };
-
   this.front = function () {
     _this.position = 0;
     return _this;
   };
 
   this.end = function () {
-    _this.position = _this.listSize - 1;
+    _this.position = _this.length - 1;
     return _this;
   };
 
   this.previous = function () {
-    if (_this.position > 0) {
+    if (_this.position > -1) {
       --_this.position;
       return _this;
     }
@@ -366,7 +358,7 @@ var List = function List() {
   };
 
   this.next = function () {
-    if (_this.position < _this.listSize - 1) {
+    if (_this.position < _this.length) {
       ++_this.position;
       return _this;
     }
@@ -374,7 +366,7 @@ var List = function List() {
   };
 
   this.moveTo = function (index) {
-    if (Number(index) > -1 && Number(index) < _this.listSize - 1) {
+    if (Number(index) > -1 && Number(index) < _this.length - 1) {
       _this.position = Number(index);
       return _this;
     }
@@ -383,7 +375,7 @@ var List = function List() {
 
   this.clear = function () {
     _this.dataStore = [];
-    _this.listSize = _this.position = 0;
+    _this.length = _this.position = 0;
 
     return _this;
   };
@@ -392,11 +384,27 @@ var List = function List() {
     var index = _this.getIndex(element);
     if (index > -1) {
       _this.dataStore.splice(index, 1);
-      --_this.listSize;
+      --_this.length;
       return _this;
     }
 
     return false;
+  };
+
+  this.forEach = function (process) {
+    for (_this.front(); _this.position < _this.length; _this.next()) {
+      process(_this.getCurrentElement(), _this.position, _this.dataStore);
+    }
+
+    return _this;
+  };
+
+  this.backEach = function (process) {
+    for (_this.end(); _this.position > -1; _this.previous()) {
+      process(_this.getCurrentElement(), _this.position, _this.dataStore);
+    }
+
+    return _this;
   };
 
   return this;

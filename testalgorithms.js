@@ -11,8 +11,5 @@ console.dir([
   dsalgo.linear.plus(222220, 111911),
   twod.calculateRowStats(false),
   twod.calculateColumnStats(),
-  list.toString(),
-  list.front().getCurrentElement(),
-  list.next().getCurrentElement(),
-  list.previous().next().getCurrentElement()
+  list.forEach((el) => console.dir(el))
 ]);
