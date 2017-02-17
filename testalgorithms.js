@@ -10,7 +10,8 @@ list.append('hall');
 var stack = new dsalgo.lists.Stack();
 stack.push('noah')
 var queue = new dsalgo.lists.Queue();
-
+queue.enqueue('noah');
+queue.enqueue('hall');
 console.dir([
   dsalgo,
   dsalgo.linear.plus(222220, 111911),
@@ -22,6 +23,9 @@ console.dir([
   stack.pop(),
   stack.pop(),
   stack.top,
-  typeof queue,
-  queue.constructor
+  'queue',
+  queue.first,
+  queue.last,
+  queue.dequeue(),
+  queue.length
 ]);
