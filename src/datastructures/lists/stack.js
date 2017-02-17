@@ -22,13 +22,5 @@ export default class Stack extends List {
   // UPDATE
 
   // DELETE
-    pop = () => {
-      if (this.top) {
-        const element = this.getCurrentElement();
-        this.remove(element);
-        return element;
-      }
-
-      return false;
-    };
+    pop = () => this.remove(this.getCurrentElement(), true);
 }
