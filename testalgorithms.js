@@ -8,12 +8,12 @@ list.append('edward');
 list.append('hall');
 
 var stack = new dsalgo.lists.Stack();
-
 console.dir([
   dsalgo,
   dsalgo.linear.plus(222220, 111911),
   twod.calculateRowStats(false),
   twod.calculateColumnStats(),
   list.constructor,
-  stack.constructor
+  stack.constructor,
+  list.forEach((el, i) => console.log(el, i))
 ]);
