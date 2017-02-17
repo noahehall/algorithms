@@ -2634,9 +2634,34 @@ var Stack = function (_List) {
   return Stack;
 }(List);
 
+/**
+ * creates a Queue
+ * @see datastructures and algorithms in javascript, page 59
+ */
+
+var Queue = function (_List) {
+  _inherits(Queue, _List);
+
+  function Queue() {
+    _classCallCheck(this, Queue);
+
+    return _possibleConstructorReturn(this, (Queue.__proto__ || _Object$getPrototypeOf(Queue)).call(this));
+  }
+
+  // behavior
+  // CREATE
+  // READ
+  // UPDATE
+  // DELETE
+
+
+  return Queue;
+}(List);
+
 var lists = {
   List: List,
-  Stack: Stack
+  Stack: Stack,
+  Queue: Queue
 };
 
 var ds = {
