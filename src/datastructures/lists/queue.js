@@ -2,7 +2,7 @@ import Stack from './stack.js';
 
 /**
  * creates a Queue
- * @see datastructures and algorithms in javascript, page 59
+ * @see datastructures and algorithms in javascript, page 59, 72
  */
 export default class Queue extends Stack {
   constructor() {
@@ -24,9 +24,11 @@ export default class Queue extends Stack {
     }
   // UPDATE
   // DELETE
-    dequeue = () => {
+    dequeue = (front = true) => {
       if (this.top) {
-        this.front();
+        if (front) this.front();
+        else this.end();
+
         return this.pop();
       }
 

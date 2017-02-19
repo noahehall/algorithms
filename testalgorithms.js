@@ -12,6 +12,18 @@ stack.push('noah')
 var queue = new dsalgo.lists.Queue();
 queue.enqueue('noah');
 queue.enqueue('hall');
+
+var pqueue = new dsalgo.lists.PQueue();
+pqueue.enqueue('noah', 10);
+pqueue.enqueue('hall', 200);
+
+var linkedList = new dsalgo.lists.LinkedList();
+linkedList.insert('noah');
+linkedList.insert('edward');
+linkedList.insert('hall');
+
+var dict = new dsalgo.dicts.Dictionary();
+
 console.dir([
   dsalgo,
   dsalgo.linear.plus(222220, 111911),
@@ -26,6 +38,16 @@ console.dir([
   'queue',
   queue.first,
   queue.last,
-  queue.dequeue(),
-  queue.length
+  queue.dequeue(false),
+  queue.length,
+  pqueue.dequeue(false),
+  'link',
+  linkedList.find('noah'),
+  linkedList.find('edward'),
+  linkedList.find('bam'),
+  linkedList.findFirst(),
+  linkedList.insert('super', 'edward').display(),
+'dict',
+dict
+
 ]);
