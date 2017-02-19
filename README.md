@@ -5,4 +5,4 @@ current focus is data structures, then i'll swing back to algorithms
 eventually will be useable for all of the awesome applications your building.
 
 
-- `$ npm run build && node testalgorithms.js`
+- `$ npm run start`

@@ -9,15 +9,16 @@ export default {
   dest: 'index.js',
   format: 'umd',
   moduleName: 'dsalgo',
+  sourceMap: true,
   plugins: [
-    progress({ clearLine: false }),
+    progress({ clearLine: true }),
     nodeResolve({
       jsnext: true,
       main: true
     }),
     commonjs({
       include: 'node_modules/**',
-      sourceMap: false,
+      sourceMap: true,
     }),
     babel({
       babelrc: true,
