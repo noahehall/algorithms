@@ -1,6 +1,6 @@
-algorithms and data structures implemented in javascript
+algorithms implemented in javascript
 
-current focus is data structures, then i'll swing back to algorithms
+current focus is [data structures](https://github.com/noahehall/datastructures), then i'll swing back to algorithms
 
 eventually will be useable for all of the awesome applications your building.
 
